@@ -1,8 +1,6 @@
 # JSON2CSV
 
-A converter to extract nested JSON data to CSV files.
-
-Created specifically to convert multi-line Mongo query results to a single CSV (since data nerds like CSV).
+Consumes a paginated JSON endpoint response and turns it into a csv file.
 
 ## Installation
 
@@ -10,7 +8,113 @@ Created specifically to convert multi-line Mongo query results to a single CSV (
     cd json2csv
     pip install -r requirements.txt
 
-## Usage
+## How it works
+
+1. Consumes an endpoint string.
+2. Hits that endpoint to get #1 The data schema. #2 The first set of results. Writes the first set of results to a new csv file.
+3. Hits the next page and writes to the csv file until there are no more pages.
+4. TODO: Checks the number of rows against the expected number of rows (gathered from first endpoint access).
+5. TODO: Checks for duplicate rows.
+6. TODO: Writes above metadata to the report.
+
+## Example endpoint format:
+
+```json
+{
+"count": 1337,
+"next": "some_url&page=2",
+"previous": null,
+"results": [
+{
+"id": 1,
+"contacts": [
+{
+"id": 89
+}
+]
+},
+{
+"id": 2,
+"contacts": [
+{
+"id": 82
+},
+{
+"id": 4867
+}
+]
+},
+{
+"id": 3,
+"contacts": [
+{
+"id": 82
+}
+]
+},
+{
+"id": 4,
+"contacts": [
+{
+"id": 89
+}
+]
+},
+{
+"id": 5,
+"contacts": [
+{
+"id": 89
+}
+]
+},
+{
+"id": 6,
+"contacts": [
+{
+"id": 89
+}
+]
+},
+{
+"id": 7,
+"contacts": [
+{
+"id": 89
+}
+]
+},
+{
+"id": 8,
+"contacts": [
+{
+"id": 89
+}
+]
+},
+{
+"id": 10,
+"contacts": [
+{
+"id": 89
+}
+]
+},
+{
+"id": 12,
+"contacts": [
+{
+"id": 7664
+}
+]
+}
+],
+"next_page": 2,
+"previous_page": null
+}
+```
+
+## Original Usage
 
 Basic (convert from a JSON file to a CSV file in same path):
 
