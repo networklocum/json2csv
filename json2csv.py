@@ -90,7 +90,7 @@ class Json2Csv(object):
         else:
             return unicode(item)
 
-    def write_csv(self, filename='output.csv', make_strings=False):
+    def write_csv(self, filename='output.csv', open_mode='wb+', make_strings=False):
         """Write the processed rows to the given filename
         """
         if (len(self.rows) <= 0):
@@ -99,9 +99,10 @@ class Json2Csv(object):
             out = self.make_strings()
         else:
             out = self.rows
-        with open(filename, 'wb+') as f:
+        with open(filename, open_mode) as f:
             writer = csv.DictWriter(f, self.key_map.keys())
-            writer.writeheader()
+            if open_mode == 'wb+':
+                writer.writeheader()
             writer.writerows(out)
 
 
@@ -116,6 +117,11 @@ class MultiLineJson2Csv(Json2Csv):
             if self.collection in d:
                 d = d[self.collection]
             self.rows.append(self.process_row(d))
+
+
+class ListJson2Csv(Json2Csv):
+    def load(self, json_data):
+        self.process_each(json_data)
 
 
 def init_parser():
@@ -153,3 +159,14 @@ if __name__ == '__main__':
         outfile = fileName + '.csv'
 
     loader.write_csv(filename=outfile, make_strings=args.strings)
+
+
+def write_list_to_csv(data_list, output_filename, outline_filename, open_mode="ab+"):
+    key_map = {}
+    with open(outline_filename, 'r') as f:
+        key_map = json.load(f)
+
+    loader = ListJson2Csv(key_map)
+    loader.load(data_list)
+    loader.write_csv(filename=output_filename, open_mode=open_mode)
+

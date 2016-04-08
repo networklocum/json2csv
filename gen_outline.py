@@ -81,5 +81,12 @@ def main():
     with open(outfile, 'w') as f:
         json.dump(outline, f, indent=2, sort_keys=True)
 
+
+def generate_outline(data_list, output_filename):
+    key_map = gather_key_map(iter(data_list))
+    outline = {'map': key_map_to_list(key_map)}
+    with open(output_filename, 'w') as f:
+        json.dump(outline, f, indent=2)
+
 if __name__ == '__main__':
     main()
