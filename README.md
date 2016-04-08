@@ -19,7 +19,7 @@ Consumes a paginated JSON endpoint response and turns it into a csv file.
 
 ## Example endpoint format:
 
-```json
+```javascript
 {
 "count": 1337,
 "next": "some_url&page=2",
