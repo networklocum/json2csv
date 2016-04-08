@@ -19,98 +19,66 @@ Consumes a paginated JSON endpoint response and turns it into a csv file.
 
 ## Example endpoint format:
 
-```javascript
+```json
 {
-"count": 1337,
-"next": "some_url&page=2",
-"previous": null,
-"results": [
-{
-"id": 1,
-"contacts": [
-{
-"id": 89
-}
-]
-},
-{
-"id": 2,
-"contacts": [
-{
-"id": 82
-},
-{
-"id": 4867
-}
-]
-},
-{
-"id": 3,
-"contacts": [
-{
-"id": 82
-}
-]
-},
-{
-"id": 4,
-"contacts": [
-{
-"id": 89
-}
-]
-},
-{
-"id": 5,
-"contacts": [
-{
-"id": 89
-}
-]
-},
-{
-"id": 6,
-"contacts": [
-{
-"id": 89
-}
-]
-},
-{
-"id": 7,
-"contacts": [
-{
-"id": 89
-}
-]
-},
-{
-"id": 8,
-"contacts": [
-{
-"id": 89
-}
-]
-},
-{
-"id": 10,
-"contacts": [
-{
-"id": 89
-}
-]
-},
-{
-"id": 12,
-"contacts": [
-{
-"id": 7664
-}
-]
-}
-],
-"next_page": 2,
-"previous_page": null
+    "count": 1337,
+    "next": "some_url&page=2",
+    "previous": null,
+    "results": [{
+        "id": 1,
+        "contacts": [{
+            "id": 89
+        }]
+    }, {
+        "id": 2,
+        "contacts": [{
+            "id": 82
+        }, {
+            "id": 4867
+        }]
+    }, {
+        "id": 3,
+        "contacts": [{
+            "id": 82
+        }]
+    }, {
+        "id": 4,
+        "contacts": [{
+            "id": 89
+        }]
+    }, {
+        "id": 5,
+        "contacts": [{
+            "id": 89
+        }]
+    }, {
+        "id": 6,
+        "contacts": [{
+            "id": 89
+        }]
+    }, {
+        "id": 7,
+        "contacts": [{
+            "id": 89
+        }]
+    }, {
+        "id": 8,
+        "contacts": [{
+            "id": 89
+        }]
+    }, {
+        "id": 10,
+        "contacts": [{
+            "id": 89
+        }]
+    }, {
+        "id": 12,
+        "contacts": [{
+            "id": 7664
+        }]
+    }],
+    "next_page": 2,
+    "previous_page": null
 }
 ```
 
