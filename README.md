@@ -40,12 +40,7 @@ Consumes a paginated JSON endpoint response and turns it into a csv file.
         "contacts": [{
             "id": 89
         }]
-    }, {
-        "id": 5,
-        "contacts": [{
-            "id": 89
-        }]
-    },
+    }],
     "next_page": 2,
     "previous_page": null
 }
