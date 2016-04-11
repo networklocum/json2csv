@@ -2,12 +2,6 @@
 
 Consumes a paginated JSON endpoint response and turns it into a csv file.
 
-## Installation
-
-    git clone https://github.com/evidens/json2csv.git
-    cd json2csv
-    pip install -r requirements.txt
-
 ## How it works
 
 1. Consumes an endpoint string.
@@ -51,32 +45,7 @@ Consumes a paginated JSON endpoint response and turns it into a csv file.
         "contacts": [{
             "id": 89
         }]
-    }, {
-        "id": 6,
-        "contacts": [{
-            "id": 89
-        }]
-    }, {
-        "id": 7,
-        "contacts": [{
-            "id": 89
-        }]
-    }, {
-        "id": 8,
-        "contacts": [{
-            "id": 89
-        }]
-    }, {
-        "id": 10,
-        "contacts": [{
-            "id": 89
-        }]
-    }, {
-        "id": 12,
-        "contacts": [{
-            "id": 7664
-        }]
-    }],
+    },
     "next_page": 2,
     "previous_page": null
 }
