@@ -46,7 +46,7 @@ Consumes a paginated JSON endpoint response and turns it into a csv file.
 }
 ```
 
-## Original Usage
+# Original Usage (what this is forked from)
 
 Basic (convert from a JSON file to a CSV file in same path):
 
