@@ -5,7 +5,7 @@ import uuid
 setup(
         name='json2csv',
         version='0.1',
-        modules=['json2csv', 'endpoint2csv.py'],
+        modules=['json2csv', 'endpoint2csv'],
         scripts=['json2csv.py'],
         url='https://github.com/evidens/json2csv',
         license='MIT License',
