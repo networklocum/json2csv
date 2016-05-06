@@ -6,7 +6,8 @@ import json2csv
 
 
 class Endpoint2CSV(object):
-    expected_row_count = None
+    row_count_change = None
+    row_count = None
     results_index = "results"
     count_index = "count"
     outline_filename = 'temp.outline.json'
@@ -22,8 +23,8 @@ class Endpoint2CSV(object):
                 "Endpoint didn't return valid json. JSON parse error: {}".format(
                     str(e))
             )
-        self.expected_row_count = first_response.get(self.count_index, False)
-        if self.expected_row_count is False:
+        initial_row_count = first_response.get(self.count_index, False)
+        if initial_row_count is False:
             raise requests.exceptions.RequestException(
                 "Endpoint didn't return the number of rows in the first access "
                 "of the paginated data."
@@ -88,34 +89,26 @@ class Endpoint2CSV(object):
                         "Endpoint didn't return 'results'."
                     )
 
-    def check_report_validity(self):
-        duplicate_rows = self.find_duplicate_rows()
-        row_differences = self.find_length_differences()
-        self.write_report_metadata(row_differences, duplicate_rows)
+        final_row_count = response.get(self.count_index, False)
+        if final_row_count is False:
+            raise requests.exceptions.RequestException(
+                "Endpoint didn't return the number of rows in the last page "
+                "of the paginated data."
+            )
+        self.row_count_change = initial_row_count - final_row_count
+        self.row_count = final_row_count
+
+    def get_report_metadata(self):
+        return {
+            'row_count_change': self.row_count_change,
+            'duplicate_rows': self.get_duplicate_rows(),
+            'row_count': self.row_count
+        }
 
     # TODO
-    def find_duplicate_rows(self):
+    def get_duplicate_rows(self):
         """
         :return: returns the duplicate rows (list of row #'s, the rows themselves?)
         """
-        pass
-
-    # TODO
-    def find_row_differences(self):
-        """
-        :return: the difference between expected_row_count and the number of
-        rows in the report
-        """
-        pass
-
-    # TODO
-    def write_report_metadata(self, row_differences, duplicate_rows):
-        """
-        Adds metadata to the csv file
-        :param row_differences: the difference between the expected row count
-        and the number of rows in the report
-        :param duplicate_rows: the duplicate rows in the report
-        :return:
-        """
-        pass
+        return []
 
