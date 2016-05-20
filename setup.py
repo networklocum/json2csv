@@ -12,5 +12,5 @@ setup(
         author='evidens',
         author_email='',
         description='Converts JSON files to CSV (pulling data from nested structures). Useful for Mongo data',
-        install_requires= [str(ir.req) for ir in parse_requirements('requirements.txt', session=uuid.uuid1())]
+        install_requires= ['unicodecsv==0.9.0']
 )
