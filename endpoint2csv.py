@@ -12,12 +12,14 @@ class Endpoint2CSV(object):
     count_index = "count"
     outline_filename = 'temp.outline.json'
 
-    def __init__(self, next_page_url_method=None, *args, **kwargs):
-        if next_page_url_method is None:
-            def generate_next_page_url(response, *args, **kwargs):
-                return response.get('next', False)
-            self.next_page_url_method = generate_next_page
-        super(Endpoint2CSV, self).__init__(*args, **kwargs)
+    def get_next_page_url(self, current_response, base_url, *args, **kwargs):
+        '''
+        Generates the next page to hit based on the last request made.
+
+        :param current_response: the response for this page
+        :param base_url: the base url for the whole report
+        '''
+        return current_response.get('next', False)
 
     def write_endpoint2csv(self, file_name, url):
         # requests can fail - usage of this method has to decide how to fail
@@ -49,7 +51,7 @@ class Endpoint2CSV(object):
 
         response = first_response
 
-        next_page_url = self.next_page_url_method(response, url)
+        next_page_url = self.get_next_page_url(response, url)
         if next_page_url is False:
             raise requests.exceptions.RequestException(
                 "Endpoint didn't have a 'next' in the response json for "
@@ -73,7 +75,7 @@ class Endpoint2CSV(object):
                     open_mode="ab+"
                 )
 
-            next_page_url = self.next_page_url_method(response, url)
+            next_page_url = self.get_next_page_url(response, url)
             if next_page_url is False:
                 raise requests.exceptions.RequestException(
                     "Endpoint didn't have a 'next' in the response json for "
