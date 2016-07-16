@@ -15,6 +15,7 @@ class Endpoint2CSV(object):
     def get_next_page_url(self, current_response, base_url, *args, **kwargs):
         '''
         Generates the next page to hit based on the last request made.
+        Must return False if the current_reponse was invalid.
 
         :param current_response: the response for this page
         :param base_url: the base url for the whole report
