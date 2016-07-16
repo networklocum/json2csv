@@ -12,11 +12,12 @@ class Endpoint2CSV(object):
     count_index = "count"
     outline_filename = 'temp.outline.json'
 
-    def __init__(self, next_page_url_method=None):
-        if next_page_method is None:
+    def __init__(self, next_page_url_method=None, *args, **kwargs):
+        if next_page_url_method is None:
             def generate_next_page_url(response):
                 return response.get('next', False)
             self.next_page_url_method = generate_next_page
+        super(Endpoint2CSV, self).__init__(*args, **kwargs)
 
     def write_endpoint2csv(self, file_name, url):
         # requests can fail - usage of this method has to decide how to fail
