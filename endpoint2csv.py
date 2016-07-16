@@ -14,7 +14,7 @@ class Endpoint2CSV(object):
 
     def __init__(self, next_page_url_method=None, *args, **kwargs):
         if next_page_url_method is None:
-            def generate_next_page_url(response):
+            def generate_next_page_url(response, *args, **kwargs):
                 return response.get('next', False)
             self.next_page_url_method = generate_next_page
         super(Endpoint2CSV, self).__init__(*args, **kwargs)
@@ -49,7 +49,7 @@ class Endpoint2CSV(object):
 
         response = first_response
 
-        next_page_url = self.next_page_url_method(response)
+        next_page_url = self.next_page_url_method(response, url)
         if next_page_url is False:
             raise requests.exceptions.RequestException(
                 "Endpoint didn't have a 'next' in the response json for "
@@ -73,7 +73,7 @@ class Endpoint2CSV(object):
                     open_mode="ab+"
                 )
 
-            next_page_url = self.next_page_url_method(response)
+            next_page_url = self.next_page_url_method(response, url)
             if next_page_url is False:
                 raise requests.exceptions.RequestException(
                     "Endpoint didn't have a 'next' in the response json for "
